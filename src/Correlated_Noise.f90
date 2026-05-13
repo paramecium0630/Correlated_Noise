@@ -276,7 +276,7 @@ module global_vars
     call build_jacobian_from_state(N, r, G, avex, Q)
 
     ! calculate the Schur form of Q
-    call prepare_q_schur_cache(N, Q, QschurT, QschurVS, QschurWR, QschurWI, QschurWORK, QschurBWORK)
+    call schur_factorize_real_matrix(N, Q, QschurT, QschurVS, QschurWR, QschurWI, QschurWORK, QschurBWORK)
     call solve_qx_xqt_from_schur_real(N, QschurT, QschurVS, -noise, QschurSol)
 	KoT = cmplx(QschurSol, 0d0, kind=8)
 
@@ -359,19 +359,6 @@ module global_vars
 		write(6,*) "Warning: DGEES failed in schur_factorize_real_matrix, INFO =", INFO
 	endif
 	end subroutine schur_factorize_real_matrix
-
-    subroutine prepare_q_schur_cache(N, Q, Tschur, VS, WR, WI, WORK, BWORK)
-		! Precompute the real Schur cache of Q once so later solves of
-		! Q*X + X*Q^T = S can reuse the same Tschur / VS data.
-		implicit none
-		integer, intent(in) :: N
-		real(8), intent(in) :: Q(N,N)
-		real(8), intent(out) :: Tschur(N,N), VS(N,N), WR(N), WI(N)
-		real(8), intent(inout) :: WORK(*)
-		logical, intent(inout) :: BWORK(N)
-
-		call schur_factorize_real_matrix(N, Q, Tschur, VS, WR, WI, WORK, BWORK)
-	end subroutine prepare_q_schur_cache
 
     subroutine solve_qx_xqt_from_schur_real(N, Tschur, VS, RHS, X)
 		implicit none
