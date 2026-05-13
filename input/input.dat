@@ -1,0 +1,5 @@
+5d-4, 10000, 1 ! simulation settings
+0, 10000d0, 5, 5  ! simulation settings ! t0, tend, icon, ntau 分別是模擬的開始時間、結束時間、每隔多少步取樣一次、<x(t+tau)x(t)>的tau值
+0, 0.0d0, 5.d0, 5.d0, 1.d0, 0.01 ! network settings ! idir=1 for directed, prob是連結機率，r0是耦合強度的縮放參數，W_mean和W_sig是加權隨機圖的平均和標準差，dd是噪聲強度
+0, 0, 10 ! 新增：0=生成, 1=讀檔；以及節點數
+input/network_data/C_elegan/male_gap_junction_corrected/edges.csv
