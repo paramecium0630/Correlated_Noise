@@ -56,9 +56,9 @@ module global_vars
 
     real(8), allocatable :: avex(:), avef(:), Ko(:,:), Ktau(:,:,:), KtauBUF(:,:)
 
-    real(8), allocatable :: QschurSol(:,:), QschurWORK(:), QschurBWORK(:)
+    real(8), allocatable :: QschurSol(:,:), QschurWORK(:)
     real(8), allocatable :: QschurT(:,:), QschurVS(:,:), QschurWR(:), QschurWI(:)
-
+	logical, allocatable :: QschurBWORK(:)
     complex(8), allocatable :: KoT(:,:) 
     character(len=256) :: header_str  ! 讀網路檔標頭用
     real(8), external :: RAN3, GAUDEV
