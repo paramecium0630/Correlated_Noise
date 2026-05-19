@@ -85,7 +85,8 @@ module global_vars
     OPEN(UNIT=17, FILE='output/average/Ktau.dat', STATUS='REPLACE')
 
     OPEN(UNIT=18, FILE='output/solution/Lyapunov_check.dat', STATUS='unknown')
-    OPEN(UNIT=19, FILE='output/solution/Ko.dat', STATUS='unknown')
+    OPEN(UNIT=19, FILE='output/solution/Koii.dat', STATUS='unknown')
+	OPEN(UNIT=20, FILE='output/solution/Koij.dat', STATUS='unknown')
 
     mean_degree = prob*N
 
@@ -284,8 +285,10 @@ module global_vars
     do i = 1, N; do j = 1, N
         write(18,*) Lyapunov_check(i,j)
     enddo; enddo
-    do i = 1, N; do j = i, N
-        write(19,*) Ko(i,j), real(KoT(i,j), kind=8), aimag(KoT(i,j))
+    do i = 1, N
+		write(19,*) Ko(i,i), real(KoT(i,i), kind=8), aimag(KoT(i,i))
+		do j = i+1, N		
+        	write(20,*) Ko(i,j), real(KoT(i,j), kind=8), aimag(KoT(i,j))
     enddo; enddo
 
     end program Correlated_Noise
